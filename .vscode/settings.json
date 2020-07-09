@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    ".wxss": "css",
+    "*.wxss": "css",
+    "freertos_shell_port.h": "c"
+  }
+}
