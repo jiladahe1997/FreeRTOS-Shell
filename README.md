@@ -3,39 +3,41 @@ FreeRTOS-Shell is a Shell for [FreeRTOS](https://www.freertos.org/), like Linux 
 
 ### Why this?
 
-As for many embedded applications, there is few way to inactive with your application once it run and that makes things diffcult. A shell provide a possiablity to inactive with your application, you could use it to do many jobs, for example: 
+For many embedded applications, there is few way to inactive with your application once it run and that makes things difficult. A shell provide the possibility to inactive with your application, you could use it to do many jobs, such as: 
 
-- execute function by your command 
-- show running log 
-- do unit test
-- show FreeRTOS system infomation, like task status、mutex status
-- provide a simple operation interface for other person to use, like Test Engineer、Hardware Engineer、Production Engineer.
+- Execute function by your command 
+- Show running log 
+- Do unit test
+- Show FreeRTOS system infomation, like task status、mutex status
+- Provide a simple operation interface for other person to use, like Test Engineer、Hardware Engineer、Production Engineer.
 
-### How a shell work?
 
-A shell works as parse user INPUT、run functions and then OUTPUT the result. A Shell could be implented by different ways, as long as your application could provide an interface which could INPUT and OUTPUT. For convinence, most shell using [UART](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter).
+<br />
 
 ![example](example.gif)
 
 # How to use 
 
 the usage is simple, you just need three steps: 
-- install:  add essential files to your project, depending on your develop enviroment, there are different ways to implent this.
-- port:   As mentioned above, a shell could use UART to implent INPUT and OUTPUT, you may want use your own uart settings, so your should PORT little code to adap your boards.
-- start:  start the shell.
+- install:  
+>Add essential files to your project, depending on your develop enviroment, there are different ways to implent this.
+- port:   
+>FreeRTOS-shell use UART to implent INPUT and OUTPUT, you may want use your own uart settings, so your should PORT little code to adapt your boards.
+- start: 
+> Start the shell.
 
 ## Install
-- 1.STM32CubeMX
+1.STM32CubeMX
 
 TODO: https://community.st.com/s/feed/0D53W00000Cg0y8SAB
 
-- 2.From source
+2.From source
   
  Download this reposity by using git clonem or click Download ZIP. Add 3 files to your project: `FreeRTOS_CLI.c` 、`FreeRTOS_Shell.c` 、`FreeRTOS_Shell_port.c`
 
 ## Port
 
-Modify the code in `FreeRTOS_Shell_port.c`, there are only functions you should port:
+Modify the code in `FreeRTOS_Shell_port.c`, there are only 3 functions you should port:
 
 ```
 /**
@@ -60,6 +62,7 @@ void FreeRTOS_Shell_init(void);
 
 ## Start
 ```
+/* Just create a simple FreeRTOS task */
 osThreadId_t ShellHandle;
 const osThreadAttr_t Shell_attributes = {
   .name = "Shell",
@@ -74,7 +77,7 @@ ShellHandle = osThreadNew(FreeRTOS_Shell, NULL, &Shell_attributes);
 # Features
 - fast command register, out of user logic,
   
-  you could register command by using `FREERTOS_SHELL_CMD_REGISTER` out of any function.
+  >you could register command by using `FREERTOS_SHELL_CMD_REGISTER` out of any function.
   ```
   static BaseType_t listAllThread(char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString){
     ...
@@ -84,15 +87,20 @@ ShellHandle = osThreadNew(FreeRTOS_Shell, NULL, &Shell_attributes);
   ```
 - modifiable logo 
   
-  generate your own logo here: http://www.network-science.de/ascii/. and then replace the macro FREERTOS_SHELL_START_LOGO in `FreeRTOS_Shell.h`
+  >generate your own logo here: http://www.network-science.de/ascii/. and then replace the macro FREERTOS_SHELL_START_LOGO in `FreeRTOS_Shell.h`
 
 - modifiable logo username
   
-  modify the macro FREERTOS_SHELL_USER_INFO in `FreeRTOS_Shell.h`
+  >modify the macro FREERTOS_SHELL_USER_INFO in `FreeRTOS_Shell.h`
 
 - ...more features in development
-- 
-  # TODO
+
+
+# How a shell work?
+
+A shell works as parse user INPUT、run functions and then OUTPUT the result. A Shell could be implented by different ways, as long as your application could provide an interface which could INPUT and OUTPUT. For convinence, most shell using [UART](https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter).
+
+# TODO
 
   1.适配GCC编译器<br/>
   2.增加更多的FreeRTOS内置API<br/>
@@ -100,3 +108,8 @@ ShellHandle = osThreadNew(FreeRTOS_Shell, NULL, &Shell_attributes);
   4.增加STM32CubeMX包<br/>
   5.测试更多芯片<br/>
   6.增加example项目
+
+
+# Thanks
+RT-thread <br/>
+FreeRTOS-CLI
