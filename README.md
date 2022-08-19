@@ -33,7 +33,7 @@ TODO: https://community.st.com/s/feed/0D53W00000Cg0y8SAB
 
 2.From source
   
- Download this reposity by using git clonem or click Download ZIP. Add 3 files to your project: `FreeRTOS_CLI.c` 、`FreeRTOS_Shell.c` 、`FreeRTOS_Shell_port.c`
+ Download this reposity by using git clone or click Download ZIP. Add 3 files to your project: `FreeRTOS_CLI.c` 、`FreeRTOS_Shell.c` 、`FreeRTOS_Shell_port.c`
 
 ## Port
 
